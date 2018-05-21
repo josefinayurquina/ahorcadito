@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlAhorcado" header="Juego Ahorcado" footer="Escuela de Minas 2018">
+            <h:form id="frmAhorcado">
+                <p:messages id="msgAhorcado" showDetail="true"/>
+                <p:panelGrid id="tblAhorcado" columns="4">
+                    <p:dataGrid id="tblPalabra" columns="10" 
+                                emptyMessage="Ingrese la palabra a adivinar"
+                                var="palabra" value="#{ahorcadoFormBean.ahorcado.palabraAhorcadoFormato}">
+                        <p:panelGrid columns="1">
+                            <p:outputLabel value="#{palabra}"/>
+                        </p:panelGrid>
+                    </p:dataGrid>
+                    <p:outputLabel value="Palabra: "/>
+                    <p:password id="txtPalabraAdivinar" required="true" 
+                                disabled="#{ahorcadoFormBean.componenteDeshabilitador}"
+                                value="#{ahorcadoFormBean.palabraIngresada}"/>
+                    <p:commandButton value="Jugar" 
+                                     disabled="#{ahorcadoFormBean.componenteDeshabilitador}" 
+                                     actionListener="#{ahorcadoFormBean.empezarJuego()}" update="frmAhorcado"/>
+                    <p:panelGrid columns="3">
+                        <p:outputLabel value="Letra"/>
+                        <p:inputText id="txtLetraIngresada" required="true" maxlength="1" 
+                                     size="1" value="#{ahorcadoFormBean.letraIngresada}" 
+                                     disabled="#{ahorcadoFormBean.componenteDeshabilitador eq false}" />
+                        <p:commandButton value="OK" disabled="#{ahorcadoFormBean.componenteDeshabilitador eq false}" 
+                                         update="frmAhorcado" actionListener="#{ahorcadoFormBean.controlarLetra()}"/>
+                    </p:panelGrid>
+                    <p:outputLabel value="Intentos: "/>
+                    <p:outputLabel value="#{ahorcadoFormBean.ahorcado.intentos}"/>
+                </p:panelGrid>
+                <p:panelGrid id="pnlGrafico" columns="1">
+                    <p:commandButton value="Nuevo Juego" update="frmAhorcado" 
+                                     disabled="#{ahorcadoFormBean.componenteDeshabilitador eq false}" 
+                                     actionListener="#{ahorcadoFormBean.nuevoJuego()}">
+                    </p:commandButton>
+                    <p:graphicImage id="imagenAhorcado"
+                                    value="#{ahorcadoFormBean.ahorcado.imagen}"/>
+                </p:panelGrid>
+                             
+            </h:form>
+        </p:panel>
+                 
+    </h:body>
+</html>
